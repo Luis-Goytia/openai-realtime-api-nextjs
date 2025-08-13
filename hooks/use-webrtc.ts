@@ -169,6 +169,11 @@ export default function useWebRTCAudioSession(
    * Send transcription to active modals
    */
   function sendTranscriptionToModals(text: string) {
+    // Validar que text no sea undefined, null o vacío
+    if (!text || typeof text !== 'string' || text.trim() === '') {
+      return;
+    }
+    
     if (activeModals?.campaign) {
       const event = new CustomEvent('voiceInputToCampaign', { 
         detail: { text, timestamp: Date.now() }

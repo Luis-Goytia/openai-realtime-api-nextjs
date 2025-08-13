@@ -91,9 +91,58 @@ export function useNotesWebRTC(): UseNotesWebRTCReturn {
 
   // Función para guardar nota
   const saveNote = (noteData?: { title: string; content: string; tags?: string[] }) => {
-    const title = noteData?.title || currentNote.title
-    const content = noteData?.content || currentNote.content
-    const tags = noteData?.tags || currentNote.tags || []
+    // Si no hay datos proporcionados, intentar obtener del DOM
+    if (!noteData) {
+      // Intentar obtener datos directamente del DOM
+      const titleInput = document.querySelector('input[placeholder*="título"], input[placeholder*="title"]') as HTMLInputElement
+      const contentTextarea = document.querySelector('textarea[placeholder*="contenido"], textarea[placeholder*="content"]') as HTMLTextAreaElement
+      
+      const title = titleInput?.value || currentNote.title
+      const content = contentTextarea?.value || currentNote.content
+      
+      if (!title || !content) {
+        toast.error("No hay datos para guardar. Por favor, llena el título y contenido.")
+        return { 
+          success: false, 
+          message: "No hay datos para guardar. Por favor, llena el título y contenido." 
+        }
+      }
+
+      const newNote: Note = {
+        id: Date.now().toString(),
+        title,
+        content,
+        tags: currentNote.tags || [],
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+
+      setNotes(prev => [newNote, ...prev])
+      setCurrentNote({ title: "", content: "", tags: [] })
+      setIsCreatingNote(false)
+      
+      // Limpiar campos del DOM
+      if (titleInput) titleInput.value = ""
+      if (contentTextarea) contentTextarea.value = ""
+      
+      toast.success("¡Nota guardada exitosamente! 💾", {
+        description: `"${newNote.title}" ha sido guardada.`,
+        duration: 3000
+      })
+      
+      const event = new CustomEvent('noteSaved')
+      document.dispatchEvent(event)
+      
+      return { 
+        success: true, 
+        note: newNote, 
+        message: `¡Perfecto! He guardado la nota "${newNote.title}" exitosamente. La nota está ahora en tu lista de notas.` 
+      }
+    }
+    
+    const title = noteData.title
+    const content = noteData.content
+    const tags = noteData.tags || []
     
     if (!title || !content) {
       toast.error("La nota debe tener título y contenido")
@@ -122,12 +171,6 @@ export function useNotesWebRTC(): UseNotesWebRTCReturn {
     // Disparar evento para confeti
     const event = new CustomEvent('noteSaved')
     document.dispatchEvent(event)
-    
-    // Disparar evento para presionar botón automáticamente
-    const saveEvent = new CustomEvent('voiceInputToNotes', {
-      detail: { field: 'save' }
-    })
-    document.dispatchEvent(saveEvent)
     
     return { 
       success: true, 
@@ -214,6 +257,12 @@ export function useNotesWebRTC(): UseNotesWebRTCReturn {
 
   // Procesar transcripción de voz
   const processVoiceInput = (text: string) => {
+    // Validar que text no sea undefined o null
+    if (!text || typeof text !== 'string') {
+      console.log('Invalid text input:', text)
+      return
+    }
+    
     console.log('Processing voice input:', text)
     setIsProcessingVoice(true)
     setCurrentTranscription(text)
@@ -231,7 +280,11 @@ export function useNotesWebRTC(): UseNotesWebRTCReturn {
     }
     
     if (text.toLowerCase().includes('guardar') || text.toLowerCase().includes('save')) {
-      saveNote()
+      // Disparar evento para que el componente guarde con los campos locales
+      const event = new CustomEvent('voiceInputToNotes', {
+        detail: { field: 'save' }
+      })
+      document.dispatchEvent(event)
       return
     }
     
@@ -271,8 +324,17 @@ export function useNotesWebRTC(): UseNotesWebRTCReturn {
   // Escuchar transcripción de voz del sistema WebRTC
   useEffect(() => {
     const handleVoiceInput = (event: CustomEvent) => {
-      const { text } = event.detail
-      processVoiceInput(text)
+      const { text, field } = event.detail
+      
+      // Si es un evento de campo específico (como 'save'), no procesar como texto
+      if (field) {
+        return
+      }
+      
+      // Si hay texto, procesarlo
+      if (text && typeof text === 'string') {
+        processVoiceInput(text)
+      }
     }
 
     document.addEventListener('voiceInputToNotes', handleVoiceInput as EventListener)
@@ -281,6 +343,8 @@ export function useNotesWebRTC(): UseNotesWebRTCReturn {
       document.removeEventListener('voiceInputToNotes', handleVoiceInput as EventListener)
     }
   }, [])
+
+
 
   return {
     isSessionActive,

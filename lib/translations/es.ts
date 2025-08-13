@@ -2,25 +2,25 @@ export const es = {
   broadcast: {
     end: "Finalizar Transmisión",
     live: "En Vivo",
-    start: "Iniciar Transmisión"
+    start: "Iniciar"
   },
   header: {
     title: "Acerca de",
     about: "Este es un proyecto que pretende demostrar cómo usar la API en tiempo real de OpenAI con WebRTC en un proyecto moderno de Next 15. Tiene componentes shadcn/ui ya instalados y el hook de sesión de audio WebRTC ya implementado. Clona el proyecto y define tus propias herramientas.",
-    banner: "🎉 ¡Descubre la nueva biblioteca OpenAI Realtime Blocks UI para Next.js!",
-    bannerLink: "Saber más →",
+    banner: "🎉 Esto es una demo de control de la web con voz con inteligencia artificial",
+    bannerLink: "",
     beta: "Beta",
     dark: "Oscuro",
     github: "Estrella en GitHub",
     language: "Idioma",
     light: "Claro",
-    logo: "OpenAI Realtime Starter",
+    logo: "POC Asistente IA Realtime",
     system: "Sistema",
     theme: "Cambiar tema",
     twitter: "Seguir en"
   },
   hero: {
-    badge: "Next.js + shadcn/ui",
+    badge: "",
     subtitle: "Haga una demostración haciendo clic en el botón de abajo y pruebe las herramientas disponibles",
     title: "API en tiempo real de OpenAI (WebRTC)"
   },

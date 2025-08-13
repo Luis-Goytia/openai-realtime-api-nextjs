@@ -113,8 +113,8 @@ export default function NotesPage() {
       tags: []
     }
     
-    // Llamar a la función del hook con la nota
-    saveNote(newNote)
+    // Llamar a la función del hook sin argumentos (obtendrá datos del DOM)
+    saveNote()
     
     // Limpiar campos locales
     setLocalTitle("")
@@ -142,6 +142,8 @@ export default function NotesPage() {
       document.removeEventListener('voiceInputToNotes', handleVoiceInput as EventListener)
     }
   }, [])
+
+
 
 
 

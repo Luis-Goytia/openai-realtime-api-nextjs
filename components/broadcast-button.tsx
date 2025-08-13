@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useTranslations } from "@/components/translations-context";
+import { Mic, MicOff } from "lucide-react";
 
 interface BroadcastButtonProps {
   isSessionActive: boolean
@@ -20,7 +21,17 @@ export function BroadcastButton({ isSessionActive, onClick }: BroadcastButtonPro
           {t('broadcast.live')}
         </Badge>
       )}
-      {isSessionActive ? t('broadcast.end') : t('broadcast.start')}
+      {isSessionActive ? (
+        <>
+          <MicOff className="h-5 w-5" />
+          {t('broadcast.end')}
+        </>
+      ) : (
+        <>
+          <Mic className="h-5 w-5" />
+          {t('broadcast.start')}
+        </>
+      )}
     </Button>
   )
 } 

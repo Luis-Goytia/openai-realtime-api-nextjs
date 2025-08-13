@@ -43,6 +43,22 @@ export function ToolsEducation() {
       name: t('tools.availableTools.scrapeWebsite.name'),
       description: t('tools.availableTools.scrapeWebsite.description'),
     },
+    {
+      name: t('tools.availableTools.createCampaign.name'),
+      description: t('tools.availableTools.createCampaign.description'),
+    },
+    {
+      name: t('tools.availableTools.voiceNotes.name'),
+      description: t('tools.availableTools.voiceNotes.description'),
+    },
+    {
+      name: t('tools.availableTools.generateReport.name'),
+      description: t('tools.availableTools.generateReport.description'),
+    },
+    {
+      name: t('tools.availableTools.scheduleMeeting.name'),
+      description: t('tools.availableTools.scheduleMeeting.description'),
+    },
   ] as const;
 
   return (

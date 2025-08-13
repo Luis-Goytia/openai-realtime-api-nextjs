@@ -18,11 +18,11 @@ const toolDefinitions = {
         parameters: {}
     },
     changeBackgroundColor: {
-        description: 'Changes the background color of the page', 
+        description: 'Changes the background color of the page or switches between light/dark themes', 
         parameters: {
         color: { 
             type: 'string',
-            description: 'Color value (hex, rgb, or color name)'
+            description: 'Color value (hex, rgb, or color name). If not provided, switches between light/dark themes'
         }
         }
     },
@@ -58,6 +58,87 @@ const toolDefinitions = {
             url: {
                 type: 'string',
                 description: 'The URL to scrape'
+            }
+        }
+    },
+    createCampaign: {
+        description: 'Opens the interactive campaign creator with voice input capabilities',
+        parameters: {}
+    },
+    openVoiceNotes: {
+        description: 'Navigates to the notes page for creating and managing notes with voice commands',
+        parameters: {}
+    },
+    generateReport: {
+        description: 'Generates a report based on the specified type and data',
+        parameters: {
+            type: {
+                type: 'string',
+                description: 'Type of report (ventas, marketing, financiero, proyecto, general)'
+            },
+            data: {
+                type: 'string',
+                description: 'Additional data for the report'
+            }
+        }
+    },
+    scheduleMeeting: {
+        description: 'Schedules a meeting with the specified details',
+        parameters: {
+            title: {
+                type: 'string',
+                description: 'Meeting title'
+            },
+            date: {
+                type: 'string',
+                description: 'Meeting date and time'
+            },
+            participants: {
+                type: 'string',
+                description: 'Meeting participants'
+            }
+        }
+    },
+    showHelp: {
+        description: 'Shows the voice command assistant with all available commands',
+        parameters: {}
+    },
+    createNote: {
+        description: 'Creates a new note and opens the note creation form',
+        parameters: {}
+    },
+    saveNote: {
+        description: 'Saves the current note being created',
+        parameters: {}
+    },
+    goHome: {
+        description: 'Navigates back to the home page',
+        parameters: {}
+    },
+    setNoteTitle: {
+        description: 'Sets the title for the current note being created',
+        parameters: {
+            title: {
+                type: 'string',
+                description: 'The title text for the note'
+            }
+        }
+    },
+    setNoteContent: {
+        description: 'Sets the content for the current note being created',
+        parameters: {
+            content: {
+                type: 'string',
+                description: 'The content text for the note'
+            }
+        }
+    },
+    addNoteTag: {
+        description: 'Adds a tag to the current note being created',
+        parameters: {
+            tag: {
+                type: 'string',
+                description: 'The tag to add to the note'
             }
         }
     }

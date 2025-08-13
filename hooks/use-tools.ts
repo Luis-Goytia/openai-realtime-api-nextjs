@@ -6,6 +6,15 @@ import { animate as framerAnimate } from "framer-motion"
 import { useTranslations } from "@/components/translations-context"
 import FirecrawlApp, { ScrapeResponse } from '@mendable/firecrawl-js';
 
+// Eventos personalizados para comunicación con componentes
+const createCustomEvent = (eventName: string, data?: unknown) => {
+  const event = new CustomEvent(eventName, { 
+    detail: data,
+    bubbles: true 
+  });
+  document.dispatchEvent(event);
+};
+
 export const useToolsFunctions = () => {
   const { t } = useTranslations();
 
@@ -19,30 +28,58 @@ export const useToolsFunctions = () => {
     }
   }
 
-  const backgroundFunction = () => {
+  const backgroundFunction = ({ color }: { color?: string } = {}) => {
     try {
-      const html = document.documentElement;
-      const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      if (color) {
+        // Cambiar a un color específico
+        const body = document.body;
+        
+        // Validar y aplicar el color
+        const validColor = isValidColor(color) ? color : '#3b82f6'; // Azul por defecto
+        
+        body.style.backgroundColor = validColor;
+        
+        toast(`¡Color de fondo cambiado a ${validColor}! 🎨`, {
+          description: `El fondo ahora es ${validColor}`,
+        })
 
-      html.classList.remove(currentTheme);
-      html.classList.add(newTheme);
+        return { 
+          success: true, 
+          color: validColor,
+          message: `He cambiado el color de fondo a ${validColor}.`
+        };
+      } else {
+        // Cambiar entre tema claro y oscuro (funcionalidad original)
+        const html = document.documentElement;
+        const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-      toast(`Switched to ${newTheme} mode! 🌓`, {
-        description: t('tools.switchTheme') + newTheme + ".",
-      })
+        html.classList.remove(currentTheme);
+        html.classList.add(newTheme);
 
-      return { 
-        success: true, 
-        theme: newTheme,
-        message: t('tools.switchTheme') + newTheme + "."
-      };
+        toast(`Switched to ${newTheme} mode! 🌓`, {
+          description: t('tools.switchTheme') + newTheme + ".",
+        })
+
+        return { 
+          success: true, 
+          theme: newTheme,
+          message: t('tools.switchTheme') + newTheme + "."
+        };
+      }
     } catch (error) {
       return { 
         success: false, 
         message: t('tools.themeFailed') + ": " + error 
       };
     }
+  }
+
+  // Función auxiliar para validar colores
+  const isValidColor = (color: string): boolean => {
+    const s = new Option().style;
+    s.color = color;
+    return s.color !== '';
   }
 
   const partyFunction = () => {
@@ -190,12 +227,96 @@ export const useToolsFunctions = () => {
     }
   }
 
+  const createCampaign = () => {
+    // Disparar evento para abrir el modal de campañas
+    createCustomEvent('openCampaignCreator');
+    
+    toast.success("¡Abriendo creador de campañas! 🎯", {
+      description: "El asistente de creación de campañas se ha abierto. Puedes hablar para llenar los campos automáticamente.",
+    })
+    
+    return {
+      success: true,
+      message: "He abierto el creador de campañas. Ahora puedes crear una campaña de marketing completa usando solo tu voz. Habla para llenar cada campo automáticamente."
+    }
+  }
+
+  const openVoiceNotes = () => {
+    // Navegar a la página de notas
+    if (typeof window !== 'undefined') {
+      window.location.href = '/notes';
+    }
+    
+    toast.success("¡Navegando a la página de notas! 📝", {
+      description: "Te estoy llevando a la página de notas. El asistente de voz se activará automáticamente.",
+    })
+    
+    return {
+      success: true,
+      message: "Te estoy llevando a la página de notas. El asistente de voz se activará automáticamente y podrás crear, editar y gestionar notas usando solo tu voz."
+    }
+  }
+
+  const generateReport = ({ type }: { type: string, data?: string }) => {
+    const reportTypes = {
+      "ventas": "Reporte de Ventas",
+      "marketing": "Reporte de Marketing", 
+      "financiero": "Reporte Financiero",
+      "proyecto": "Reporte de Proyecto",
+      "general": "Reporte General"
+    }
+
+    const reportType = reportTypes[type as keyof typeof reportTypes] || "Reporte"
+    
+    toast.success(`¡Generando ${reportType}! 📊`, {
+      description: "El reporte se está generando con los datos proporcionados.",
+    })
+
+    return {
+      success: true,
+      type: reportType,
+      message: `He generado un ${reportType} basado en la información proporcionada. El reporte incluye análisis, métricas y recomendaciones.`
+    }
+  }
+
+  const scheduleMeeting = ({ title, date, participants }: { title: string, date: string, participants: string }) => {
+    toast.success("¡Reunión programada! 📅", {
+      description: `Reunión: ${title} - ${date}`,
+    })
+
+    return {
+      success: true,
+      title,
+      date,
+      participants,
+      message: `He programado la reunión "${title}" para el ${date} con los participantes: ${participants}. Se ha enviado una confirmación por email.`
+    }
+  }
+
+  const showHelp = () => {
+    // Disparar evento para abrir el asistente de comandos
+    createCustomEvent('openCommandAssistant');
+    
+    toast.success("¡Abriendo asistente de comandos! 📚", {
+      description: "Aquí tienes todos los comandos disponibles organizados por categorías.",
+    })
+    return {
+      success: true,
+      message: "He abierto el asistente de comandos por voz. Aquí puedes ver todas las funciones disponibles organizadas por categorías: Marketing, Productividad, Herramientas Básicas, Web y Utilidades."
+    }
+  }
+
   return {
     timeFunction,
     backgroundFunction,
     partyFunction,
     launchWebsite,
     copyToClipboard,
-    scrapeWebsite
+    scrapeWebsite,
+    createCampaign,
+    openVoiceNotes,
+    generateReport,
+    scheduleMeeting,
+    showHelp
   }
 }

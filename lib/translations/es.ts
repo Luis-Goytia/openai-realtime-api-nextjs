@@ -67,12 +67,52 @@ export const es = {
         name: "Modo Fiesta"
       },
       themeSwitcher: {
-        description: 'Di "Cambiar fondo" o "Cambiar a modo oscuro" o "Cambiar a modo claro".',
-        name: "Cambiar Tema"
+        description: 'Di "Cambiar fondo" o "Cambiar a modo oscuro" o "Cambiar a modo claro". También puedes decir "Cambiar fondo a azul" o "Cambiar fondo a rojo".',
+        name: "Cambiar Tema/Color"
       },
       scrapeWebsite: {
         name: "Extractor de Sitios Web",
         description: 'Di "Extraer contenido de [URL del sitio]" para obtener contenido de una página web.'
+      },
+      createCampaign: {
+        name: "Creador de Campañas",
+        description: 'Di "Crear campaña" para abrir el asistente interactivo de creación de campañas de marketing.'
+      },
+      voiceNotes: {
+        name: "Asistente de Notas",
+        description: 'Di "Tomar notas" para abrir el asistente de notas por voz con autocompletado.'
+      },
+      generateReport: {
+        name: "Generador de Reportes",
+        description: 'Di "Generar reporte de [tipo]" para crear reportes automáticos.'
+      },
+      scheduleMeeting: {
+        name: "Programar Reunión",
+        description: 'Di "Programar reunión" para agendar una nueva reunión.'
+      },
+      createNote: {
+        name: "Crear Nota",
+        description: 'Di "crear nota" para abrir el formulario de nueva nota.'
+      },
+      saveNote: {
+        name: "Guardar Nota",
+        description: 'Di "guardar" para guardar la nota actual.'
+      },
+      goHome: {
+        name: "Volver al Inicio",
+        description: 'Di "volver" o "home" para regresar al inicio.'
+      },
+      setNoteTitle: {
+        name: "Establecer Título",
+        description: 'La IA puede establecer el título de la nota automáticamente.'
+      },
+      setNoteContent: {
+        name: "Establecer Contenido",
+        description: 'La IA puede establecer el contenido de la nota automáticamente.'
+      },
+      addNoteTag: {
+        name: "Agregar Etiqueta",
+        description: 'La IA puede agregar etiquetas a la nota automáticamente.'
       }
     },
     clipboard: {

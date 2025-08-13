@@ -73,6 +73,22 @@ export const fr = {
             scrapeWebsite: {
                 name: "Extracteur de Site Web",
                 description: 'Dites "Extraire le contenu de [URL du site]" pour récupérer le contenu d\'une page web.'
+            },
+            createCampaign: {
+                name: "Créateur de Campagne",
+                description: 'Dites "Créer une campagne" pour ouvrir l\'assistant interactif de création de campagnes.'
+            },
+            voiceNotes: {
+                name: "Assistant de Notes Vocales",
+                description: 'Dites "Prendre des notes" pour ouvrir l\'assistant de notes vocales avec autocomplétion.'
+            },
+            generateReport: {
+                name: "Générateur de Rapports",
+                description: 'Dites "Générer un rapport de [type]" pour créer des rapports automatiques.'
+            },
+            scheduleMeeting: {
+                name: "Programmer une Réunion",
+                description: 'Dites "Programmer une réunion" pour planifier une nouvelle réunion.'
             }
         },
         clipboard: {

@@ -35,6 +35,7 @@ interface UseWebRTCAudioSessionReturn {
 export default function useWebRTCAudioSession(
   voice: string,
   tools?: Tool[],
+  activeModals?: { campaign?: boolean; notes?: boolean }
 ): UseWebRTCAudioSessionReturn {
   const { t, locale } = useTranslations();
   // Connection/session states
@@ -165,6 +166,25 @@ export default function useWebRTCAudioSession(
   }
 
   /**
+   * Send transcription to active modals
+   */
+  function sendTranscriptionToModals(text: string) {
+    if (activeModals?.campaign) {
+      const event = new CustomEvent('voiceInputToCampaign', { 
+        detail: { text, timestamp: Date.now() }
+      });
+      document.dispatchEvent(event);
+    }
+    
+    if (activeModals?.notes) {
+      const event = new CustomEvent('voiceInputToNotes', { 
+        detail: { text, timestamp: Date.now() }
+      });
+      document.dispatchEvent(event);
+    }
+  }
+
+  /**
    * Main data channel message handler: interprets events from the server.
    */
   async function handleDataChannelMessage(event: MessageEvent) {
@@ -220,12 +240,18 @@ export default function useWebRTCAudioSession(
          * Final user transcription
          */
         case "conversation.item.input_audio_transcription.completed": {
-          // console.log("Final user transcription:", msg.transcript);
+          const finalText = msg.transcript || "";
+          // console.log("Final user transcription:", finalText);
+          
           updateEphemeralUserMessage({
-            text: msg.transcript || "",
+            text: finalText,
             isFinal: true,
             status: "final",
           });
+          
+          // Send transcription to active modals
+          sendTranscriptionToModals(finalText);
+          
           clearEphemeralUserMessage();
           break;
         }

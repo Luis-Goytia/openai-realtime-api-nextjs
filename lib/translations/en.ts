@@ -73,6 +73,22 @@ export const en = {
             scrapeWebsite: {
                 name: "Website Scraper",
                 description: 'Say "Scrape [website URL]" to extract content from a webpage.'
+            },
+            createCampaign: {
+                name: "Campaign Creator",
+                description: 'Say "Create campaign" to open the interactive campaign creation assistant.'
+            },
+            voiceNotes: {
+                name: "Voice Notes Assistant",
+                description: 'Say "Take notes" to open the voice notes assistant with autocomplete.'
+            },
+            generateReport: {
+                name: "Report Generator",
+                description: 'Say "Generate report of [type]" to create automatic reports.'
+            },
+            scheduleMeeting: {
+                name: "Schedule Meeting",
+                description: 'Say "Schedule meeting" to book a new meeting.'
             }
         },
         clipboard: {

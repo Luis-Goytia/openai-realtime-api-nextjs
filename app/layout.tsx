@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { siteConfig } from "@/config/site";
 import { Toaster } from "@/components/ui/sonner"
 import { Analytics } from "@vercel/analytics/react"
 import { TranslationsProvider } from "@/components/translations-context"
@@ -16,18 +15,11 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js + OpenAI Realtime API (WebRTC)",
-  description: "",
-  authors: [{ name: siteConfig.author, url: siteConfig.links.twitter }],
-  creator: siteConfig.author,
-  metadataBase: new URL(siteConfig.url),
-  openGraph: {
-    images: "/opengraph-image.png",
-  },
+  title: "Demo Realtime Web",
+  description: "Demo Realtime Web",
   icons: {
     icon: "/favicon.ico",
   },
-  keywords: ["AI Blocks", "OpenAI Blocks", "Blocks", "OpenAI Realtime API"],
 };
 
 export default function RootLayout({

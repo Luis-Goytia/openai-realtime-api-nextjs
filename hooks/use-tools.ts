@@ -228,16 +228,18 @@ export const useToolsFunctions = () => {
   }
 
   const createCampaign = () => {
-    // Disparar evento para abrir el modal de campañas
-    createCustomEvent('openCampaignCreator');
+    // Navegar a la página de campañas
+    if (typeof window !== 'undefined') {
+      window.location.href = '/campaigns';
+    }
     
-    toast.success("¡Abriendo creador de campañas! 🎯", {
-      description: "El asistente de creación de campañas se ha abierto. Puedes hablar para llenar los campos automáticamente.",
+    toast.success("¡Navegando a la página de campañas! 🎯", {
+      description: "Te estoy llevando a la página de campañas. El asistente de voz se activará automáticamente.",
     })
     
     return {
       success: true,
-      message: "He abierto el creador de campañas. Ahora puedes crear una campaña de marketing completa usando solo tu voz. Habla para llenar cada campo automáticamente."
+      message: "Te estoy llevando a la página de campañas. El asistente de voz se activará automáticamente y podrás crear, editar y gestionar campañas de marketing usando solo tu voz."
     }
   }
 
@@ -257,25 +259,19 @@ export const useToolsFunctions = () => {
     }
   }
 
-  const generateReport = ({ type }: { type: string, data?: string }) => {
-    const reportTypes = {
-      "ventas": "Reporte de Ventas",
-      "marketing": "Reporte de Marketing", 
-      "financiero": "Reporte Financiero",
-      "proyecto": "Reporte de Proyecto",
-      "general": "Reporte General"
+  const generateReport = () => {
+    // Navegar a la página de reportes
+    if (typeof window !== 'undefined') {
+      window.location.href = '/reports';
     }
-
-    const reportType = reportTypes[type as keyof typeof reportTypes] || "Reporte"
     
-    toast.success(`¡Generando ${reportType}! 📊`, {
-      description: "El reporte se está generando con los datos proporcionados.",
+    toast.success("¡Navegando a la página de reportes! 📊", {
+      description: "Te estoy llevando a la página de reportes. El asistente de voz se activará automáticamente.",
     })
-
+    
     return {
       success: true,
-      type: reportType,
-      message: `He generado un ${reportType} basado en la información proporcionada. El reporte incluye análisis, métricas y recomendaciones.`
+      message: "Te estoy llevando a la página de reportes. El asistente de voz se activará automáticamente y podrás crear, editar y gestionar reportes usando solo tu voz."
     }
   }
 
@@ -306,6 +302,99 @@ export const useToolsFunctions = () => {
     }
   }
 
+  // Funciones específicas para reportes (solo disponibles en la página de reportes)
+  const createReport = () => {
+    // Disparar evento para crear reporte
+    const event = new CustomEvent('createReport');
+    document.dispatchEvent(event);
+    
+    return {
+      success: true,
+      message: "He abierto el formulario para crear un nuevo reporte. Di el título y tipo de tu reporte."
+    }
+  }
+
+  const saveReport = () => {
+    // Disparar evento para guardar reporte
+    const event = new CustomEvent('saveReport');
+    document.dispatchEvent(event);
+    
+    return {
+      success: true,
+      message: "He guardado el reporte exitosamente."
+    }
+  }
+
+  const goToCampaigns = () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/campaigns';
+    }
+    
+    return {
+      success: true,
+      message: "Te estoy llevando a la página de campañas."
+    }
+  }
+
+  const goToNotes = () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/notes';
+    }
+    
+    return {
+      success: true,
+      message: "Te estoy llevando a la página de notas."
+    }
+  }
+
+  const setReportTitle = ({ title }: { title: string }) => {
+    // Disparar evento para establecer título
+    const event = new CustomEvent('setReportTitle', { detail: { title } });
+    document.dispatchEvent(event);
+    
+    return {
+      success: true,
+      title,
+      message: `He establecido el título como "${title}".`
+    }
+  }
+
+  const setReportType = ({ type }: { type: string }) => {
+    // Disparar evento para establecer tipo
+    const event = new CustomEvent('setReportType', { detail: { type } });
+    document.dispatchEvent(event);
+    
+    return {
+      success: true,
+      type,
+      message: `He establecido el tipo como "${type}".`
+    }
+  }
+
+  const setReportContent = ({ content }: { content: string }) => {
+    // Disparar evento para establecer contenido
+    const event = new CustomEvent('setReportContent', { detail: { content } });
+    document.dispatchEvent(event);
+    
+    return {
+      success: true,
+      content,
+      message: "He establecido el contenido del reporte."
+    }
+  }
+
+  const setReportData = ({ data }: { data: string }) => {
+    // Disparar evento para establecer datos
+    const event = new CustomEvent('setReportData', { detail: { data } });
+    document.dispatchEvent(event);
+    
+    return {
+      success: true,
+      data,
+      message: "He establecido los datos adicionales del reporte."
+    }
+  }
+
   return {
     timeFunction,
     backgroundFunction,
@@ -317,6 +406,15 @@ export const useToolsFunctions = () => {
     openVoiceNotes,
     generateReport,
     scheduleMeeting,
-    showHelp
+    showHelp,
+    // Funciones específicas de reportes
+    createReport,
+    saveReport,
+    goToCampaigns,
+    goToNotes,
+    setReportTitle,
+    setReportType,
+    setReportContent,
+    setReportData
   }
 }

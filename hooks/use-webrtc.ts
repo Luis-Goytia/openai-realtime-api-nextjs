@@ -35,7 +35,7 @@ interface UseWebRTCAudioSessionReturn {
 export default function useWebRTCAudioSession(
   voice: string,
   tools?: Tool[],
-  activeModals?: { campaign?: boolean; notes?: boolean }
+  activeModals?: { campaign?: boolean; notes?: boolean; report?: boolean }
 ): UseWebRTCAudioSessionReturn {
   const { t, locale } = useTranslations();
   // Connection/session states
@@ -183,6 +183,13 @@ export default function useWebRTCAudioSession(
     
     if (activeModals?.notes) {
       const event = new CustomEvent('voiceInputToNotes', { 
+        detail: { text, timestamp: Date.now() }
+      });
+      document.dispatchEvent(event);
+    }
+    
+    if (activeModals?.report) {
+      const event = new CustomEvent('voiceInputToReports', { 
         detail: { text, timestamp: Date.now() }
       });
       document.dispatchEvent(event);

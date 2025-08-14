@@ -75,16 +75,16 @@ export const en = {
                 description: 'Say "Scrape [website URL]" to extract content from a webpage.'
             },
             createCampaign: {
-                name: "Campaign Creator",
-                description: 'Say "Create campaign" to open the interactive campaign creation assistant.'
+                name: "Go to Campaigns",
+                description: 'Say "Go to campaigns" to navigate to the campaign creation page.'
             },
             voiceNotes: {
-                name: "Voice Notes Assistant",
-                description: 'Say "Take notes" to open the voice notes assistant with autocomplete.'
+                name: "Go to Notes",
+                description: 'Say "Go to notes" to navigate to the voice notes page with autocomplete.'
             },
             generateReport: {
-                name: "Report Generator",
-                description: 'Say "Generate report of [type]" to create automatic reports.'
+                name: "Go to Reports",
+                description: 'Say "Go to reports" to navigate to the report generation page.'
             },
             scheduleMeeting: {
                 name: "Schedule Meeting",

@@ -62,7 +62,7 @@ const toolDefinitions = {
         }
     },
     createCampaign: {
-        description: 'Opens the interactive campaign creator with voice input capabilities',
+        description: 'Navigates to the campaigns page for creating and managing marketing campaigns with voice commands',
         parameters: {}
     },
     openVoiceNotes: {
@@ -70,17 +70,8 @@ const toolDefinitions = {
         parameters: {}
     },
     generateReport: {
-        description: 'Generates a report based on the specified type and data',
-        parameters: {
-            type: {
-                type: 'string',
-                description: 'Type of report (ventas, marketing, financiero, proyecto, general)'
-            },
-            data: {
-                type: 'string',
-                description: 'Additional data for the report'
-            }
-        }
+        description: 'Navigates to the reports page for generating reports with voice commands',
+        parameters: {}
     },
     scheduleMeeting: {
         description: 'Schedules a meeting with the specified details',
@@ -139,6 +130,59 @@ const toolDefinitions = {
             tag: {
                 type: 'string',
                 description: 'The tag to add to the note'
+            }
+        }
+    },
+    // Herramientas específicas para el asistente de reportes
+    createReport: {
+        description: 'Creates a new report and opens the report creation form',
+        parameters: {}
+    },
+    saveReport: {
+        description: 'Saves the current report being created',
+        parameters: {}
+    },
+    goToCampaigns: {
+        description: 'Navigates to the campaigns page',
+        parameters: {}
+    },
+    goToNotes: {
+        description: 'Navigates to the notes page',
+        parameters: {}
+    },
+    setReportTitle: {
+        description: 'Sets the title for the current report being created',
+        parameters: {
+            title: {
+                type: 'string',
+                description: 'The title text for the report'
+            }
+        }
+    },
+    setReportType: {
+        description: 'Sets the type for the current report being created',
+        parameters: {
+            type: {
+                type: 'string',
+                description: 'The type of report (ventas, marketing, financiero, proyecto, general)'
+            }
+        }
+    },
+    setReportContent: {
+        description: 'Sets the content for the current report being created',
+        parameters: {
+            content: {
+                type: 'string',
+                description: 'The content text for the report'
+            }
+        }
+    },
+    setReportData: {
+        description: 'Sets additional data for the current report being created',
+        parameters: {
+            data: {
+                type: 'string',
+                description: 'Additional data for the report'
             }
         }
     }

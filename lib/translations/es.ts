@@ -75,16 +75,16 @@ export const es = {
         description: 'Di "Extraer contenido de [URL del sitio]" para obtener contenido de una página web.'
       },
       createCampaign: {
-        name: "Creador de Campañas",
-        description: 'Di "Crear campaña" para abrir el asistente interactivo de creación de campañas de marketing.'
+        name: "Ir a Campañas",
+        description: 'Di "Ir a campañas" para navegar a la página de creación de campañas de marketing.'
       },
       voiceNotes: {
-        name: "Asistente de Notas",
-        description: 'Di "Tomar notas" para abrir el asistente de notas por voz con autocompletado.'
+        name: "Ir a Notas",
+        description: 'Di "Ir a notas" para navegar a la página de notas por voz con autocompletado.'
       },
       generateReport: {
-        name: "Generador de Reportes",
-        description: 'Di "Generar reporte de [tipo]" para crear reportes automáticos.'
+        name: "Ir a Reportes",
+        description: 'Di "Ir a reportes" para navegar a la página de generación de reportes automáticos.'
       },
       scheduleMeeting: {
         name: "Programar Reunión",

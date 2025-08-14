@@ -75,16 +75,16 @@ export const fr = {
                 description: 'Dites "Extraire le contenu de [URL du site]" pour récupérer le contenu d\'une page web.'
             },
             createCampaign: {
-                name: "Créateur de Campagne",
-                description: 'Dites "Créer une campagne" pour ouvrir l\'assistant interactif de création de campagnes.'
+                name: "Aller aux Campagnes",
+                description: 'Dites "Aller aux campagnes" pour naviguer vers la page de création de campagnes.'
             },
             voiceNotes: {
-                name: "Assistant de Notes Vocales",
-                description: 'Dites "Prendre des notes" pour ouvrir l\'assistant de notes vocales avec autocomplétion.'
+                name: "Aller aux Notes",
+                description: 'Dites "Aller aux notes" pour naviguer vers la page de notes vocales avec autocomplétion.'
             },
             generateReport: {
-                name: "Générateur de Rapports",
-                description: 'Dites "Générer un rapport de [type]" pour créer des rapports automatiques.'
+                name: "Aller aux Rapports",
+                description: 'Dites "Aller aux rapports" pour naviguer vers la page de génération de rapports automatiques.'
             },
             scheduleMeeting: {
                 name: "Programmer une Réunion",

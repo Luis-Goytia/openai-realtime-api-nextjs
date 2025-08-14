@@ -67,7 +67,16 @@ const App: React.FC = () => {
         openVoiceNotes: 'openVoiceNotes',
         generateReport: 'generateReport',
         scheduleMeeting: 'scheduleMeeting',
-        showHelp: 'showHelp'
+        showHelp: 'showHelp',
+        // Funciones específicas de reportes
+        createReport: 'createReport',
+        saveReport: 'saveReport',
+        goToCampaigns: 'goToCampaigns',
+        goToNotes: 'goToNotes',
+        setReportTitle: 'setReportTitle',
+        setReportType: 'setReportType',
+        setReportContent: 'setReportContent',
+        setReportData: 'setReportData'
       };
       
       registerFunction(functionNames[name], func);

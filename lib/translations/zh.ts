@@ -75,16 +75,16 @@ export const zh = {
                 description: '说"提取[网站URL]的内容"来获取网页内容。'
             },
             createCampaign: {
-                name: "活动创建器",
-                description: '说"创建活动"来打开交互式活动创建助手。'
+                name: "前往活动",
+                description: '说"前往活动"来导航到活动创建页面。'
             },
             voiceNotes: {
-                name: "语音笔记助手",
-                description: '说"记笔记"来打开带有自动完成功能的语音笔记助手。'
+                name: "前往笔记",
+                description: '说"前往笔记"来导航到带有自动完成功能的语音笔记页面。'
             },
             generateReport: {
-                name: "报告生成器",
-                description: '说"生成[类型]报告"来创建自动报告。'
+                name: "前往报告",
+                description: '说"前往报告"来导航到自动报告生成页面。'
             },
             scheduleMeeting: {
                 name: "安排会议",

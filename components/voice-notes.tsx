@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -9,26 +9,19 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { 
-  Mic, 
-  MicOff, 
   Save, 
   X, 
   FileText,
-  Play,
-  Pause,
   Volume2,
   Edit,
   Trash2,
-  Download,
-  Share
+  Download
 } from "lucide-react"
 import { toast } from "sonner"
 
 interface VoiceNotesProps {
   isActive: boolean
   onClose: () => void
-  onVoiceInput: (text: string) => void
-  isListening: boolean
 }
 
 interface Note {
@@ -41,9 +34,7 @@ interface Note {
 
 export function VoiceNotes({ 
   isActive, 
-  onClose, 
-  onVoiceInput, 
-  isListening 
+  onClose
 }: VoiceNotesProps) {
   const [notes, setNotes] = useState<Note[]>([])
   const [currentNote, setCurrentNote] = useState<Note>({
@@ -54,12 +45,9 @@ export function VoiceNotes({
     tags: []
   })
   const [isEditing, setIsEditing] = useState(false)
-  const [isRecording, setIsRecording] = useState(false)
   const [transcription, setTranscription] = useState("")
   const [currentField, setCurrentField] = useState<"title" | "content" | "tags">("content")
   const [isProcessingVoice, setIsProcessingVoice] = useState(false)
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const audioChunksRef = useRef<Blob[]>([])
 
   const predefinedTags = [
     "Importante",
@@ -77,70 +65,9 @@ export function VoiceNotes({
     setTranscription("")
   }
 
-  const handleVoiceInput = (text: string) => {
-    if (!currentField) return
 
-    setCurrentNote(prev => {
-      const updated = { ...prev }
-      
-      switch (currentField) {
-        case "title":
-          updated.title = text
-          break
-        case "content":
-          updated.content = prev.content + " " + text
-          break
-        case "tags":
-          // Buscar tags en el texto
-          const foundTags = predefinedTags.filter(tag => 
-            text.toLowerCase().includes(tag.toLowerCase())
-          )
-          if (foundTags.length > 0) {
-            updated.tags = [...new Set([...prev.tags, ...foundTags])]
-          }
-          break
-      }
-      
-      return updated
-    })
 
-    setTranscription("")
-  }
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const mediaRecorder = new MediaRecorder(stream)
-      mediaRecorderRef.current = mediaRecorder
-      audioChunksRef.current = []
-
-      mediaRecorder.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data)
-      }
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' })
-        // Aquí podrías enviar el audio a un servicio de transcripción
-        // Por ahora simulamos la transcripción
-        const mockTranscription = "Esta es una nota importante sobre el proyecto"
-        handleVoiceInput(mockTranscription)
-      }
-
-      mediaRecorder.start()
-      setIsRecording(true)
-      toast.success("Grabando... Habla ahora")
-    } catch (error) {
-      toast.error("Error al acceder al micrófono")
-    }
-  }
-
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop()
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop())
-      setIsRecording(false)
-    }
-  }
 
   const saveNote = () => {
     if (!currentNote.title.trim() && !currentNote.content.trim()) {

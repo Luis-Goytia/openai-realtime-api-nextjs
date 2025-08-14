@@ -339,7 +339,7 @@ export default function CampaignsPage() {
                   <div className="text-center py-8 text-gray-500">
                     <Target className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                     <p>No hay campañas creadas</p>
-                    <p className="text-sm">Di "crear campaña" para empezar</p>
+                    <p className="text-sm">Di &quot;crear campaña&quot; para empezar</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -400,10 +400,13 @@ export default function CampaignsPage() {
 
       {/* Chat Flotante */}
       <FloatingVoiceChat
-        isActive={isSessionActive}
+        isSessionActive={isSessionActive}
+        onStartStopClick={handleFloatingChatClick}
+        currentTranscription={currentTranscription}
         isListening={isListening}
-        onClick={handleFloatingChatClick}
-        currentRoute="/campaigns"
+        isProcessing={isProcessingVoice}
+        currentField={currentField || undefined}
+        activeModal={isCreatingCampaign ? 'campaign' : null}
       />
 
       {/* Confeti */}

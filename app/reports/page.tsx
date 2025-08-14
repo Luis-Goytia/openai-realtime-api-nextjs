@@ -437,10 +437,13 @@ export default function ReportsPage() {
 
       {/* Chat Flotante */}
       <FloatingVoiceChat
-        isActive={isSessionActive}
+        isSessionActive={isSessionActive}
+        onStartStopClick={handleFloatingChatClick}
+        currentTranscription={currentTranscription}
         isListening={isListening}
-        onClick={handleFloatingChatClick}
-        currentRoute="/reports"
+        isProcessing={isProcessingVoice}
+        currentField={currentField || undefined}
+        activeModal={isCreatingReport ? 'campaign' : null}
       />
 
       {/* Confeti */}

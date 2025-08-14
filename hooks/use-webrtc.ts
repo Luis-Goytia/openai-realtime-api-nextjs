@@ -89,9 +89,9 @@ export default function useWebRTCAudioSession(
       session: {
         modalities: ["text", "audio"],
         tools: tools || [],
-        input_audio_transcription: {
-          model: "whisper-1",
-        },
+              input_audio_transcription: {
+        model: "gpt-4o-transcribe",
+      },
       },
     };
     dataChannel.send(JSON.stringify(sessionUpdate));
@@ -476,8 +476,10 @@ export default function useWebRTCAudioSession(
 
       // Send SDP offer to OpenAI Realtime
       const baseUrl = "https://api.openai.com/v1/realtime";
-      const model = "gpt-4o-realtime-preview-2024-12-17";
-      const response = await fetch(`${baseUrl}?model=${model}&voice=${voice}`, {
+      const model = process.env.NEXT_PUBLIC_OPENAI_MODEL || "gpt-4o-realtime-preview-2025-06-03";
+      const speed = process.env.NEXT_PUBLIC_OPENAI_SPEED || "1";
+      const temperature = process.env.NEXT_PUBLIC_OPENAI_TEMPERATURE || "0.7";
+      const response = await fetch(`${baseUrl}?model=${model}&voice=${voice}&speed=${speed}&temperature=${temperature}`, {
         method: "POST",
         body: offer.sdp,
         headers: {
